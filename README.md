@@ -2,7 +2,7 @@
 
 This project is an improved version of [607 Project 2](https://github.com/siyuat-ui/607-Project-2-Simulation-Study) in terms of computational efficiency and numerical stability.
 
-(About 607 Project 2) 607 Project 2 evaluated the effectiveness of engression-based neural networks for generating synthetic samples from various probability distributions. We tested performance across five distribution types (Normal, Exponential, Uniform, Lognormal, Chi-Square) with varying sample sizes. The method was inspired by the [Engression](https://arxiv.org/abs/2307.00835) paper, although the primary focus of the Engression paper was not on synthetic data generation.
+What is 607 Project 2? 607 Project 2 evaluated the effectiveness of engression-based neural networks for generating synthetic samples from various probability distributions. We tested performance across five distribution types (Normal, Exponential, Uniform, Lognormal, Chi-Square) with varying sample sizes. The method was inspired by the [Engression](https://arxiv.org/abs/2307.00835) paper, although the primary focus of the Engression paper was not on synthetic data generation.
 
 ## Project Overview
 
