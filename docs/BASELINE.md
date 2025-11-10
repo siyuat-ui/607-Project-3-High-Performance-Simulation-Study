@@ -26,6 +26,8 @@
 | `.mean()` operations | 0.230 | 6.4% |
 | `torch.randn()` | 0.129 | 3.6% |
 
+(Functions `backward()`, `engression_loss()`,..., are called within `EngressionTrainer.train()`)
+
 ### Component Breakdown:
 
 | Component | Avg Time | % Total |

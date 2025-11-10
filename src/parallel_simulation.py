@@ -20,7 +20,7 @@ from dgps import (
     LognormalGenerator,
     ChiSquareGenerator
 )
-from train_and_inference import train_and_generate
+from train_and_inference_optimized import train_and_generate
 from metrics import compute_all_metrics
 
 
