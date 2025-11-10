@@ -169,7 +169,7 @@ def create_profiling_summary_table():
     
     # Estimate full simulation
     avg_time = df['total'].mean()
-    n_experiments = 150  # 5 dist × 3 sizes × 10 reps
+    n_experiments = 250  # 5 dist × 5 sizes × 10 reps
     
     # Scale up epochs (profiling used 50, full uses 200)
     epoch_scale = 200 / 50

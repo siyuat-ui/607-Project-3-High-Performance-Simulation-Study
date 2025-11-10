@@ -1,6 +1,6 @@
-"""Run full parallel simulation with all 150 experiments.
+"""Run full parallel simulation with all 250 experiments.
 
-This script runs the complete simulation study (5 generators × 3 sample sizes × 10 replications)
+This script runs the complete simulation study (5 generators × 5 sample sizes × 10 replications)
 using parallelization across all available CPU cores.
 """
 
@@ -30,16 +30,16 @@ def main():
     print("="*70)
     print("\nConfiguration:")
     print("  - 5 distributions (Normal, Exponential, Uniform, Lognormal, Chi-Square)")
-    print("  - 3 sample sizes (100, 500, 1000)")
+    print("  - 5 sample sizes (100, 300, 500, 1000, 2000)")
     print("  - 10 replications per configuration")
-    print("  - Total: 150 experiments")
+    print("  - Total: 250 experiments")
     print("  - Epochs: 200 (with early stopping)")
     print("  - Parallelization: ALL available CPU cores")
     print("="*70)
     
     # Run full parallel simulation
     print("\nStarting parallel simulation...")
-    print("This will take several minutes (estimated: 1.5-3 minutes on 8-10 cores)")
+    print("This will take several minutes (estimated: 4 minutes on 8-10 cores)")
     print()
     
     start_time = time.time()
@@ -47,7 +47,7 @@ def main():
     results_df, summary_df = run_parallel_simulation(
         generators=None,              # Use all 5 default generators
         n_replications=10,            # Full replications
-        sample_sizes=[100, 500, 1000], # All sample sizes
+        sample_sizes=[100, 300, 500, 1000, 2000], # All sample sizes
         n_jobs=-1,                    # Use all CPU cores
         verbose=True,
         save_results=True
@@ -87,13 +87,13 @@ def main():
     print("="*70)
     
     # Compare to baseline
-    baseline_time = 8.5 * 60  # 8.5 minutes (middle of 8-10 min range)
+    baseline_time = 7.2 * 60  # 7.2 minutes in seconds
     speedup = baseline_time / total_time
     
     print("\n" + "="*70)
     print("SPEEDUP ANALYSIS")
     print("="*70)
-    print(f"Baseline (sequential): ~8.5 minutes")
+    print(f"Baseline (sequential): ~7.2 minutes")
     print(f"Parallel (this run):   {total_time/60:.2f} minutes")
     print(f"Speedup:               {speedup:.2f}x")
     print(f"Time saved:            {(baseline_time - total_time)/60:.2f} minutes ({(1-total_time/baseline_time)*100:.1f}%)")

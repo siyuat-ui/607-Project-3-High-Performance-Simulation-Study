@@ -316,7 +316,7 @@ class ParallelSimulationExperiment:
 
 
 def run_parallel_simulation(generators=None, n_replications=10, 
-                            sample_sizes=[100, 500, 1000],
+                            sample_sizes=[100, 300, 500, 1000, 2000],
                             n_jobs=-1, verbose=True, save_results=True):
     """Convenience function to run parallel simulation with default settings.
     
@@ -326,7 +326,7 @@ def run_parallel_simulation(generators=None, n_replications=10,
         Generators to test. If None, uses all 5 default generators.
     n_replications : int, default=10
         Number of replications per configuration
-    sample_sizes : list of int, default=[100, 500, 1000]
+    sample_sizes : list of int, default=[100, 300, 500, 1000m 2000]
         Sample sizes to test
     n_jobs : int, default=-1
         Number of parallel jobs (-1 = all cores)

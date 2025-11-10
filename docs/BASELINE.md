@@ -2,13 +2,12 @@
 
 ## 1. Total Runtime
 
-**Full Simulation** (5 distributions × 3 sample sizes × 10 replications = 150 experiments):
-- **Actual runtime**: 8-10 minutes on Apple M4 MacBook  
+**Full Simulation** (5 distributions × 5 sample sizes × 10 replications = 250 experiments):
+- **Actual runtime**: 6-8 minutes on Apple M4 MacBook  
 - **Epochs per experiment**: 200 (early stopping, patience=20)
 
-**Profiling Run** (3 distributions × 3 sample sizes × 1 replication = 9 experiments):
-- **Runtime**: 5.2 seconds total
-- **Average per experiment**: 0.58 seconds
+**Profiling Run** (3 distributions × 5 sample sizes × 1 replication = 15 experiments):
+- **Average per experiment**: 0.84 seconds
 - **Epochs**: 50 (reduced for profiling)
 
 ---
@@ -58,8 +57,8 @@
 | KS Test | O(n log n) | Sorting-based |
 
 ### Empirical Findings:
-- Training: α ≈ 0.9 (near-linear scaling)
-- Metrics: α ≈ 1.7 (super-linear due to MMD's O(n²))
+- Training: α ≈ 0.86 (near-linear scaling)
+- Metrics: α ≈ 1.18 (super-linear due to MMD's O(n²))
 - **Current bottleneck**: Training loop (98.9% of time)
 - **Future bottleneck**: MMD will dominate for n > 5000
 
@@ -69,7 +68,7 @@
 
 ### Warnings and Convergence Issues:
 
-**During profiling run (9 experiments, 50 epochs each)**:
+**During profiling run**:
 - No NaN or Inf values observed
 - No gradient explosion/vanishing warnings
 - No numerical overflow/underflow warnings
@@ -90,7 +89,7 @@
 ## 5. Summary
 
 ### Key Metrics:
-- **Total baseline runtime**: 8-10 minutes (150 experiments)
+- **Total baseline runtime**: 6-8 minutes (250 experiments)
 - **Primary bottleneck**: Training (98.9% of time)
 - **Secondary bottleneck**: MMD computation (will grow to O(n²))
 - **Scaling**: Near-linear in n for current range

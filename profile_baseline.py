@@ -174,7 +174,7 @@ def run_component_timing():
         UniformGenerator(low=0, high=2)
     ]
     
-    sample_sizes = [100, 500, 1000]
+    sample_sizes = [100, 300, 500, 1000, 2000]
     
     results = []
     
@@ -237,9 +237,9 @@ def estimate_full_simulation_time(component_timings):
     print("FULL SIMULATION TIME ESTIMATE")
     print("="*70)
     
-    # Full simulation: 5 generators × 3 sample sizes × 10 replications = 150 experiments
+    # Full simulation: 5 generators × 5 sample sizes × 10 replications = 250 experiments
     n_generators = 5
-    n_sizes = 3
+    n_sizes = 5
     n_replications = 10
     total_experiments = n_generators * n_sizes * n_replications
     

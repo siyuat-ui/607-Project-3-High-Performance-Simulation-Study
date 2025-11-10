@@ -43,9 +43,9 @@ def run_benchmark():
     print("  OPTIMIZED: Parallel + optimized loss (current)")
     print("\nConfiguration (reduced for benchmarking):")
     print("  - 5 distributions (Normal, Exponential, Uniform, Lognormal, Chi-Square)")
-    print("  - 3 sample sizes (100, 500, 1000)")
+    print("  - 5 sample sizes (100, 300, 500, 1000, 2000)")
     print("  - 10 replications")
-    print("  - Total: 150 experiments")
+    print("  - Total: 250 experiments")
     print("  - Epochs: 200 (early stopping with patience=20)")
     print("="*70)
     
@@ -58,7 +58,7 @@ def run_benchmark():
         ChiSquareGenerator(df=5),
     ]
     
-    sample_sizes = [100, 500, 1000]
+    sample_sizes = [100, 300, 500, 1000, 2000]
     n_replications = 10
     
     training_params = {
@@ -166,9 +166,9 @@ def run_benchmark():
     
     print("\n✅ Benchmark complete!")
     print("\nFor documentation:")
-    print(f"  - Baseline: {baseline_full/60:.1f} min (sequential, original loss)")
-    print(f"  - Optimized: {optimized_full/60:.1f} min (parallel, optimized loss)")
-    print(f"  - Speedup: {speedup_full:.2f}×")
+    print(f"  - Baseline: {baseline_time/60:.1f} min (sequential, original loss)")
+    print(f"  - Optimized: {optimized_time/60:.1f} min (parallel, optimized loss)")
+    print(f"  - Speedup: {speedup:.2f}×")
 
 
 if __name__ == "__main__":

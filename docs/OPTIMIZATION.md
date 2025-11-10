@@ -3,17 +3,17 @@
 ## Summary
 
 Two optimization strategies implemented:
-1. **Parallelization** across CPU cores (5.34× speedup)
-2. **Algorithmic improvement** in loss computation (~5% additional gain)
+1. **Parallelization** across CPU cores
+2. **Algorithmic improvement** in loss computation
 
-**Combined result**: 8.5 min → 1.59 min (5.34× speedup, 81.3% time reduction)
+**Combined result**: 7.2 min → 3.70 min (1.94x speedup, 48.5% time reduction)
 
 ---
 
 ## Optimization 1: Parallelization
 
 ### Problem Identified
-Training loop dominates 98.9% of runtime. All 150 experiments run sequentially but are independent.
+Training loop dominates 98.9% of runtime. All 250 experiments run sequentially but are independent.
 
 ### Solution Implemented
 Use `multiprocessing.Pool` to distribute experiments across CPU cores.
@@ -39,9 +39,7 @@ with Pool(processes=cpu_count()) as pool:
 
 | Metric | Sequential | Parallel | Improvement |
 |--------|-----------|----------|-------------|
-| Runtime | 510s (8.5 min) | 95s (1.59 min) | **5.34×** |
-| Per experiment | 3.4s | 0.63s | 5.4× |
-| Efficiency | - | 53.4% | (10 cores) |
+| Runtime | 431.9s | 222.3s | 48.5% |
 
 ### Trade-offs
 - Massive speedup, no accuracy loss
@@ -110,10 +108,10 @@ Data generation:   <0.01%
 ======================================================================
 SPEEDUP ANALYSIS
 ======================================================================
-Baseline (sequential): ~8.5 minutes
-Parallel (this run):   1.59 minutes
-Speedup:               5.34x
-Time saved:            6.91 minutes (81.3%)
+Baseline (sequential): ~7.2 minutes
+Parallel (this run):   3.70 minutes
+Speedup:               1.94x
+Time saved:            3.50 minutes (48.5%)
 ======================================================================
 ```
 
