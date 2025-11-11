@@ -8,8 +8,6 @@ This project implements and optimizes a simulation study comparing engression-ba
 
 ## ✅ Unit 3 Requirements Met
 
-This project fulfills all requirements from "Unit 3 Project - High-Performance Simulation Study":
-
 | Requirement | Status | Evidence |
 |-------------|--------|----------|
 | **1. Baseline Performance Documentation** | ✅ | `docs/BASELINE.md` - includes profiling, complexity analysis, bottleneck identification |
