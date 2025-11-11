@@ -15,7 +15,7 @@ This project implements and optimizes a simulation study comparing engression-ba
 | **3. Optimization Documentation** | ✅ | `docs/OPTIMIZATION.md` - Before/after code, performance impact, lessons learned, trade-offs documented |
 | **4. Updated Makefile** | ✅ | `Makefile` - Targets: `make profile`, `make benchmark`, `make parallel`, `make complexity`, `make stability-check` |
 | **5. Performance Comparison Visualization** | ✅ | See figures below: `results/profiling/baseline_complexity_analysis.png`, `results/figures/performance_comparison_runtime.png` |
-| **6. Regression Tests** | ✅ | `test_regression.py` - Validates optimized version produces statistically equivalent results to baseline (If baseline MMD <= 0.1, optimized MMD must also be <= 0.1. If baseline MMD > 0.1, difference must be within 20%) |
+| **6. Regression Tests** | ✅ | `test_regression.py` - Validates optimized version produces statistically equivalent results to the baseline (If baseline MMD <= 0.15, optimized MMD must also be <= 0.15. If baseline MMD > 0.15, difference must be within 20%) |
 
 ---
 

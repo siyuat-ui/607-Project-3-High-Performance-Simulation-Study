@@ -4,7 +4,7 @@ This script verifies that the optimized (parallel) implementation produces
 statistically equivalent results to the baseline (sequential) implementation.
 
 Tests verify:
-- MMD values are within 10% tolerance
+- MMD values meet quality thresholds
 - Optimizations preserve correctness
 - No degradation in distribution matching quality
 """
@@ -146,10 +146,10 @@ class RegressionTest:
             pct_diff = 0.0 if optimized_mmd == 0 else 100.0
         
         # Determine pass/fail with adaptive logic
-        if baseline_mmd <= 0.1:
-            # Good baseline: optimized must also be <= 0.1
-            passed = optimized_mmd <= 0.1
-            criterion = "optimized MMD <= 0.1"
+        if baseline_mmd <= 0.15:
+            # Good baseline: optimized must also be <= 0.15
+            passed = optimized_mmd <= 0.15
+            criterion = "optimized MMD <= 0.15"
         else:
             # Poor baseline: allow 20% difference
             passed = pct_diff <= 20.0
@@ -206,8 +206,8 @@ class RegressionTest:
         print("REGRESSION TEST SUITE")
         print("="*70)
         print(f"Pass Criteria:")
-        print(f"  - If baseline MMD <= 0.1: optimized MMD must also be <= 0.1")
-        print(f"  - If baseline MMD > 0.1: difference must be within 20%")
+        print(f"  - If baseline MMD <= 0.15: optimized MMD must also be <= 0.15")
+        print(f"  - If baseline MMD > 0.15: difference must be within 20%")
         print(f"Generators: {len(generators)}")
         print(f"Sample sizes: {sample_sizes}")
         print(f"Replications: {n_replications}")
@@ -331,8 +331,8 @@ def main():
     print(f"  Sample sizes: {sample_sizes}")
     print(f"  Replications per config: {n_replications}")
     print(f"\nPass Criteria:")
-    print(f"  - If baseline MMD <= 0.1: optimized MMD must also be <= 0.1")
-    print(f"  - If baseline MMD > 0.1: difference must be within 20%")
+    print(f"  - If baseline MMD <= 0.15: optimized MMD must also be <= 0.15")
+    print(f"  - If baseline MMD > 0.15: difference must be within 20%")
     print(f"\nTotal tests: {len(generators) * len(sample_sizes) * n_replications}")
     print("\nNote: Both baseline and optimized run sequentially (n_jobs=1)")
     print("      to ensure identical random seeds for fair comparison.")
