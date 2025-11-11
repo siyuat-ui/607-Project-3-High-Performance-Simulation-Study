@@ -84,7 +84,7 @@ make stability-check
 ### Baseline Complexity Analysis
 ![Baseline Complexity Analysis](results/profiling/baseline_complexity_analysis.png)
 
-*Left: Computational complexity scaling with sample size. Training exhibits near-linear $O(n^{0.86})$ scaling, while metrics (MMD) show super-linear $O(n^{1.18})$ scaling due to quadratic pairwise distance computation. Right: Component breakdown showing training dominates 98.9% of runtime across all sample sizes.*
+*Left: Computational complexity scaling with sample size. Training exhibits near-linear O(n^0.86) scaling, while metrics (MMD) show super-linear o(n^1.18) scaling due to quadratic pairwise distance computation. Right: Component breakdown showing training dominates 98.9% of runtime across all sample sizes.*
 
 ### Performance Comparison
 ![Performance Comparison](results/figures/performance_comparison_runtime.png)
