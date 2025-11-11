@@ -1,47 +1,28 @@
-# Engression-Based Synthetic Data Generation: A Simulation Study
+# Project 3: High-Performance Simulation Study
 
-This project is an improved version of [607 Project 2](https://github.com/siyuat-ui/607-Project-2-Simulation-Study) in terms of computational efficiency and numerical stability.
+**Engression-based Synthetic Data Generation - Optimized**
 
-What is 607 Project 2? 607 Project 2 evaluated the effectiveness of engression-based neural networks for generating synthetic samples from various probability distributions. We tested performance across five distribution types (Normal, Exponential, Uniform, Lognormal, Chi-Square) with varying sample sizes. The method was inspired by the [Engression](https://arxiv.org/abs/2307.00835) paper, although the primary focus of the Engression paper was not on synthetic data generation.
+This project implements and optimizes a simulation study comparing engression-based neural networks for generating samples from various probability distributions. Building on [Project 2](https://github.com/siyuat-ui/607-Project-2-Simulation-Study), this version achieves **1.94× speedup** through parallelization and algorithmic improvements.
 
-## Project Overview
+---
 
-**Method**: We aim to learn a neural network $g: \mathbb{R}^{128} \rightarrow \mathbb{R}$ such that $g(\epsilon) \overset{d}{=} X$, where $\epsilon \sim \mathcal{N}(0, I_{128})$ and $X$ is the target random variable. Our method is inspired by the [Engression](https://arxiv.org/abs/2307.00835) paper, although the primary focus of the Engression paper is not on this topic.
+## ✅ Unit 3 Requirements Met
 
-**Evaluation**: We assess distributional match using Maximum Mean Discrepancy (MMD), two-sample Kolmogorov-Smirnov tests, and moment distances across 150 experiments (5 distributions × 3 sample sizes × 10 replications).
+This project fulfills all requirements from "Unit 3 Project - High-Performance Simulation Study":
 
-**Key Finding**: Engression successfully generates samples for symmetric distributions (Normal, Uniform) with MMD < 0.05, but shows moderate performance (MMD ≈ 0.1-0.15) for skewed distributions (Exponential, Lognormal, Chi-Square). Performance consistently improves with sample size.
+| Requirement | Status | Evidence |
+|-------------|--------|----------|
+| **1. Baseline Performance Documentation** | ✅ | `docs/BASELINE.md` - includes profiling, complexity analysis, bottleneck identification |
+| **2. Two Optimization Categories** | ✅ | (1) Parallelization via multiprocessing, (2) Algorithmic improvement via vectorization |
+| **3. Performance Comparison** | ✅ | `docs/OPTIMIZATION.md` - 1.94× speedup documented with benchmarks |
+| **4. Code Implementation** | ✅ | `src/parallel_simulation.py` (optimized) vs `src/simulation.py` (baseline) |
+| **5. Makefile Targets** | ✅ | `make profile`, `make complexity`, `make benchmark`, `make parallel`, `make stability-check` |
+| **6. Profiling Evidence** | ✅ | See figures below: `baseline_complexity_analysis.png` |
+| **7. Lessons Learned** | ✅ | `docs/OPTIMIZATION.md` - "Lessons Learned" section |
 
-## Repository Structure
+---
 
-```
-.
-├── src/                      # Source code
-│   ├── main.py              # Main simulation entry point
-│   ├── dgps.py              # Data generating processes
-│   ├── methods.py           # Engression network and loss
-│   ├── train_and_inference.py  # Training and generation
-│   ├── metrics.py           # Evaluation metrics
-│   ├── simulation.py        # Simulation orchestration
-│   ├── visualizations.py    # Training/distribution plots
-│   └── analyze_results.py   # Publication-quality figures
-├── tests/                   # Test suite
-│   ├── test_dgps.py
-│   ├── test_methods.py
-│   ├── test_train_and_inference.py
-│   ├── test_metrics.py
-│   ├── test_simulation.py
-│   └── test_visualizations.py
-├── results/                 # Generated outputs
-│   ├── raw/                # CSV results
-│   └── figures/            # Visualizations
-├── Makefile                # Automation targets
-├── ADEMP.md                # Simulation design (ADEMP framework)
-├── ANALYSIS.md             # Design justification and limitations
-└── README.md               # This file
-```
-
-## Setup Instructions
+## Quick Start
 
 ### Prerequisites
 
@@ -52,136 +33,132 @@ What is 607 Project 2? 607 Project 2 evaluated the effectiveness of engression-b
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/siyuat-ui/607-Project-2-Simulation-Study.git
-cd 607-Project-2-Simulation-Study
+git clone https://github.com/siyuat-ui/607-Project-3-High-Performance-Simulation-Study.git
+cd 607-Project-3-High-Performance-Simulation-Study
 
 # 2. Create virtual environment (recommended)
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # 3. Install dependencies
-pip install -r requirements-macbook.txt # On Macbook
-pip install -r requirements-windows.txt # On Windows
+pip install -r requirements.txt
 ```
 
-### Verify Installation
-
-Run the test suite to ensure everything is set up correctly:
-```bash
-make test
-# or: pytest tests/ -v
-```
-
-## Running the Analysis
-
-### Complete Pipeline
-
-Run the entire simulation study (data generation, training, evaluation, visualization):
+### Quick Start
 
 ```bash
-make all
+# Profile baseline performance
+make profile
+
+# Analyze computational complexity
+make complexity
+
+# Compare baseline vs optimized performance
+make benchmark
+
+# Run optimized simulation (250 experiments, ~3-4 minutes)
+make parallel
+
+# Check numerical stability
+make stability-check
 ```
 
-This executes:
-1. **Simulation** (`make simulate`): Trains 150 models and generates samples
-2. **Analysis** (`make analyze`): Computes summary statistics
-3. **Figures** (`make figures`): Creates publication-quality plots
+---
 
-**Estimated Runtime**: 
-- **My Personal MacBook** (Apple M4 with mps): ~8-10 minutes
+## Project Overview
 
-### Individual Components
+### Simulation Design
+- **5 distributions**: Normal, Exponential, Uniform, Lognormal, Chi-Square
+- **5 sample sizes**: 100, 300, 500, 1000, 2000
+- **10 replications** per configuration
+- **Total**: 250 experiments
 
-Run components separately:
+### Neural Network Architecture
+- **Input**: 128-dimensional Gaussian noise
+- **Hidden layers**: 3 layers × 64 units (ReLU activation)
+- **Output**: 1-dimensional
+- **Training**: Adam optimizer, early stopping (patience=20)
 
-```bash
-make simulate    # Run simulations only
-make analyze     # Show summary statistics
-make figures     # Generate analysis plots
-make clean       # Remove generated files
-make test        # Run test suite
+---
+
+## Performance Visualization
+
+### Baseline Complexity Analysis
+![Baseline Complexity Analysis](results/profiling/baseline_complexity_analysis.png)
+
+*Left: Computational complexity scaling with sample size. Training exhibits near-linear $O(n^{0.86})$ scaling, while metrics (MMD) show super-linear $O(n^{1.18})$ scaling due to quadratic pairwise distance computation. Right: Component breakdown showing training dominates 98.9% of runtime across all sample sizes.*
+
+### Performance Comparison
+![Performance Comparison](results/figures/performance_comparison_runtime.png)
+
+*Runtime comparison between baseline (sequential) and optimized (parallel) implementations across sample sizes.*
+
+---
+
+## Performance Improvements
+
+### Baseline Performance
+- **Runtime**: ~7-8 minutes (for 250 experiments)
+- **Bottleneck**: Training loop (98.9% of time)
+- **Complexity**: Training O(n^0.86), Metrics O(n^1.18)
+
+### Optimized Performance
+- **Runtime**: ~3-4 minutes (for 250 experiments)
+- **Speedup**: **1.94×**
+- **Time saved**: ~3-4 minutes (~50% reduction)
+
+### Optimization Strategies (Two Categories)
+
+#### 1. Parallelization (Category: Parallel Computing)
+**Problem**: 250 independent experiments run sequentially
+**Solution**: 
+- Distribute experiments across CPU cores using `multiprocessing.Pool`
+- Proper random seed management for reproducibility (different seed per experiment)
+- Thread contention solved via environment variable configuration (`OMP_NUM_THREADS=1`)
+
+#### 2. Algorithmic Improvements (Category: Vectorization/Array Programming)
+**Problem**: Inefficient loss computation with manual broadcasting and mask creation
+**Solution**:
+- Vectorized epsilon generation (single forward pass instead of batched)
+- `torch.cdist()` for GPU-optimized pairwise distances
+- Diagonal extraction instead of mask creation (saves memory)
+- Reduced intermediate tensor allocations
+
+**Files**: `src/methods_optimized.py`, `src/train_and_inference_optimized.py`
+
+---
+
+## Project Structure
+
+```
+├── src/
+│   ├── dgps.py                          # Data generators
+│   ├── methods.py                       # Original neural network (baseline)
+│   ├── methods_optimized.py             # Optimized loss computation
+│   ├── train_and_inference.py           # Original training (baseline)
+│   ├── train_and_inference_optimized.py # Optimized training
+│   ├── simulation.py                    # Sequential simulation
+│   ├── parallel_simulation.py           # Parallel simulation (optimized)
+│   ├── metrics.py                       # MMD, KS tests, moment comparison
+│   └── analyze_results.py               # Visualization generation
+├── docs/
+│   ├── BASELINE.md                      # Baseline profiling documentation
+│   └── OPTIMIZATION.md                  # Optimization strategies & results
+├── results/
+│   ├── raw/                             # CSV results
+│   ├── figures/                         # Diagnostic plots
+│   └── profiling/                       # Performance analysis
+├── Makefile                             # Build targets
+├── ADEMP.md                             # Simulation design (ADEMP framework)
+├── ANALYSIS.md                          # Design justification
+└── README.md                            # This file
 ```
 
-### Custom Simulations
+---
 
-For quick testing or custom configurations:
+## Documentation
 
-```bash
-# Quick test (3 replications, 2 sample sizes, 3 distributions)
-python src/main.py --mode quick --replications 3 --sizes 100 500
-
-# Full simulation with custom parameters
-python src/main.py --mode full --replications 10 --sizes 100 500 1000
-
-# Custom architecture
-python src/main.py --mode custom \
-  --generators normal exponential \
-  --replications 5 \
-  --sizes 200 400 \
-  --input-dim 256 \
-  --num-layers 4 \
-  --hidden-dim 128
-```
-
-Use `python src/main.py --help` for all options.
-
-## Output Files
-
-After running `make all`, results are organized as:
-
-### Raw Results (`results/raw/`)
-- `simulation_results_YYYYMMDD_HHMMSS.csv`: Detailed results for all experiments
-- `simulation_summary_YYYYMMDD_HHMMSS.csv`: Aggregated statistics by condition
-
-### Figures (`results/figures/`)
-
-**Per-experiment visualizations** (150 total):
-- `{distribution}_n{size}_rep{i}_training_loss.png`: Training curves (loss, term1, term2)
-- `{distribution}_n{size}_rep{i}_density_comparison.png`: Original vs. generated densities
-- `{distribution}_n{size}_rep{i}_scatter_comparison.png`: Distribution comparison
-
-**Analysis figures** (4 total):
-- `diagnostic_heatmap.png`: Mean MMD across all conditions
-- `publication_figure.png`: Two-panel comparison (MMD and p-values with error bars)
-- `sample_size_scaling.png`: Performance vs. sample size
-- `success_rate_heatmap.png`: Percentage achieving MMD < 0.1
-
-## Key Results
-
-### Performance Across Distributions
-
-![Publication Figure](results/figures/publication_figure.png)
-
-**Panel A** shows Maximum Mean Discrepancy (MMD) by distribution type with 95% confidence intervals. Lower values indicate better distributional match. **Panel B** shows mean p-values from Kolmogorov-Smirnov tests—higher values indicate the generated samples are statistically indistinguishable from originals.
-
-### Success Rate by Condition
-
-![Success Rate Heatmap](results/figures/success_rate_heatmap.png)
-
-Percentage of replications achieving MMD < 0.1 (our success threshold). Green cells indicate high success rates, red cells indicate challenges.
-
-### Sample Size Scaling
-
-![Sample Size Scaling](results/figures/sample_size_scaling.png)
-
-Performance improvement as sample size increases from 100 to 1000. All distributions benefit from larger sample sizes, with diminishing returns beyond n=500-1000.
-
-### Summary of Key Findings
-
-The Engression idea can effectively generate 1D synthetic samples that match original distributions (MMD < 0.1) for 60-90% of cases depending on distribution type.
-
-## Methodology
-
-See `ADEMP.md` for complete methodology including:
-- Research aims and hypotheses
-- Data-generating mechanisms
-- Estimands and evaluation metrics
-- Network architecture and training procedure
-- Performance measures
-
-See `ANALYSIS.md` for:
-- Design justification
-- Fairness and bias control
-- Limitations and missing scenarios
-- Practical and theoretical implications
-- Future research directions
+- **`ADEMP.md`**: Complete simulation design using ADEMP framework
+- **`ANALYSIS.md`**: Design justification, limitations, practical implications
+- **`docs/BASELINE.md`**: Baseline profiling results and complexity analysis
+- **`docs/OPTIMIZATION.md`**: Optimization strategies, benchmarks, and lessons learned
