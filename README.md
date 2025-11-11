@@ -10,13 +10,12 @@ This project implements and optimizes a simulation study comparing engression-ba
 
 | Requirement | Status | Evidence |
 |-------------|--------|----------|
-| **1. Baseline Performance Documentation** | ✅ | `docs/BASELINE.md` - includes profiling, complexity analysis, bottleneck identification |
-| **2. Two Optimization Categories** | ✅ | (1) Parallelization via multiprocessing, (2) Algorithmic improvement via vectorization |
-| **3. Performance Comparison** | ✅ | `docs/OPTIMIZATION.md` - 1.94× speedup documented with benchmarks |
-| **4. Code Implementation** | ✅ | `src/parallel_simulation.py` (optimized) vs `src/simulation.py` (baseline) |
-| **5. Makefile Targets** | ✅ | `make profile`, `make complexity`, `make benchmark`, `make parallel`, `make stability-check` |
-| **6. Profiling Evidence** | ✅ | See figures below: `baseline_complexity_analysis.png` |
-| **7. Lessons Learned** | ✅ | `docs/OPTIMIZATION.md` - "Lessons Learned" section |
+| **1. Document Baseline Performance** | ✅ | `docs/BASELINE.md` - Runtime profiling (cProfile), complexity analysis (O(n^0.86) training, O(n^1.18) metrics), bottleneck identification (98.9% in training loop) |
+| **2. Optimization Implementation** | ✅ | Two categories: (1) Parallelization (`src/parallel_simulation.py`), (2) Vectorization (`src/methods_optimized.py`) - 1.94× speedup achieved |
+| **3. Optimization Documentation** | ✅ | `docs/OPTIMIZATION.md` - Before/after code, performance impact, lessons learned, trade-offs documented |
+| **4. Updated Makefile** | ✅ | `Makefile` - Targets: `make profile`, `make benchmark`, `make parallel`, `make complexity`, `make stability-check` |
+| **5. Performance Comparison Visualization** | ✅ | See figures below: `results/profiling/baseline_complexity_analysis.png`, `results/figures/performance_comparison_runtime.png` |
+| **6. Regression Tests** | ✅ | `test_regression.py` - Validates optimized version produces statistically equivalent results to baseline (If baseline MMD <= 0.1, optimized MMD must also be <= 0.1. If baseline MMD > 0.1, difference must be within 20%) |
 
 ---
 
